@@ -3,7 +3,12 @@ from urllib import parse
 import requests
 class handler(BaseHTTPRequestHandler):
 
-    # method to handle HTTP GET Request 
+    """
+    Serverless function to find a capital name by serching withe the country name or find a country name by searching with the capital name.
+    Takes a country name or a capital name based on what are you searching for.
+    Returns the capital name if you give the country name as a query parameter. 
+    Returns the country name if you give the capital name as a query parameter.
+    """
     def do_GET(self):
 
         path = self.path
@@ -24,6 +29,8 @@ class handler(BaseHTTPRequestHandler):
             data = res.json()
             result = data[0]["name"]["official"]
             result_final = f"{capital_name} is the capital of {result}."
+        else:
+            result_final = "You should search for a country or a capital dude !!!"
         
         self.send_response(200)
         self.send_header('Content-type','text/plain')
